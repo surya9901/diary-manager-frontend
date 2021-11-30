@@ -15,7 +15,7 @@ function Memory() {
         fetchData()
     }, [])
 
-    const [filterDropDown, setFilterDropDown] = useState(false)
+    // const [filterDropDown, setFilterDropDown] = useState(false)
 
     const [filterMenuDrop, setFilterMenuDrop] = useState(false)
     const [titleBox, setTitleBox] = useState(false)
@@ -30,21 +30,21 @@ function Memory() {
     const [filteredData, setFilteredData] = useState([])
 
     const toggleDrop = () => {
-        setFilterDropDown(!filterDropDown)
+        // setFilterDropDown(!filterDropDown)
         setFetchedMemory("")
-        if (filterDropDown) {
-            fetchData()
-        }
+        // if (filterDropDown) {
+        //     fetchData()
+        // }
     }
 
     const dateDrop = () => {
-        setFilterDropDown(!filterDropDown)
+        // setFilterDropDown(!filterDropDown)
         setFilterMenuDrop(!filterMenuDrop)
         setTitleBox(!titleBox)
     }
 
     const titleDrop = () => {
-        setFilterDropDown(!filterDropDown)
+        // setFilterDropDown(!filterDropDown)
         setFilterMenuDrop(!filterMenuDrop)
         setDateBox(!dateBox)
     }
@@ -87,7 +87,7 @@ function Memory() {
     }
 
     const cleartoggles = () => {
-        setFilterDropDown(false)
+        // setFilterDropDown(false)
         setFilterMenuDrop(false)
         setTitleBox(false)
         setDateBox(false)
@@ -112,8 +112,8 @@ function Memory() {
                                             <i className="fas fa-filter"></i>
                                         </button>
                                 }
-
-                                <ul className={`dropdown-menu ${filterDropDown ? "show" : ""}`} aria-labelledby="dropdownMenuButton1">
+{/* ${filterDropDown ? "show" : ""} */}
+                                <ul className={`dropdown-menu `} aria-labelledby="dropdownMenuButton1">
                                     <li><button className="dropdown-item" onClick={dateDrop}>Date</button></li>
                                     <li><button className="dropdown-item" onClick={titleDrop} >Title</button></li>
                                 </ul>
