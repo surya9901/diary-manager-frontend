@@ -18,7 +18,7 @@ function Memory() {
     const [filterDropDown, setFilterDropDown] = useState(false)
     const toggleDrop = () => {
         setFilterDropDown(!filterDropDown)
-        setFetchedMemory([])
+        setFetchedMemory("")
         if (filterDropDown) {
             fetchData()
         }
@@ -90,7 +90,7 @@ function Memory() {
         setDateBox(false)
         setDateValue("")
         setTitleValue("")
-        setFilteredData([])
+        setFilteredData("")
         fetchData()
     }
 
