@@ -16,6 +16,19 @@ function Memory() {
     }, [])
 
     const [filterDropDown, setFilterDropDown] = useState(false)
+
+    const [filterMenuDrop, setFilterMenuDrop] = useState(false)
+    const [titleBox, setTitleBox] = useState(false)
+
+    const [dateBox, setDateBox] = useState(false)
+
+    const [filterDisable, setFilterDisable] = useState(false)
+    const [fetchedMemory, setFetchedMemory] = useState([])
+
+    const [dateValue, setDateValue] = useState("")
+    const [titleValue, setTitleValue] = useState("")
+    const [filteredData, setFilteredData] = useState([])
+
     const toggleDrop = () => {
         setFilterDropDown(!filterDropDown)
         setFetchedMemory("")
@@ -24,25 +37,18 @@ function Memory() {
         }
     }
 
-    const [filterMenuDrop, setFilterMenuDrop] = useState(false)
-    const [titleBox, setTitleBox] = useState(false)
     const dateDrop = () => {
         setFilterDropDown(!filterDropDown)
         setFilterMenuDrop(!filterMenuDrop)
         setTitleBox(!titleBox)
     }
 
-    const [dateBox, setDateBox] = useState(false)
     const titleDrop = () => {
         setFilterDropDown(!filterDropDown)
         setFilterMenuDrop(!filterMenuDrop)
         setDateBox(!dateBox)
     }
 
-
-    const [dateValue, setDateValue] = useState("")
-    const [titleValue, setTitleValue] = useState("")
-    const [filteredData, setFilteredData] = useState([])
     const fetchfilterData = async (e) => {
         e.preventDefault()
         if (!dateValue == "") {
@@ -62,9 +68,6 @@ function Memory() {
         }
     }
 
-
-    const [filterDisable, setFilterDisable] = useState(false)
-    const [fetchedMemory, setFetchedMemory] = useState([])
     const fetchData = async () => {
         try {
             let data = await axios.get(`${env.api}/view-memory`, {
