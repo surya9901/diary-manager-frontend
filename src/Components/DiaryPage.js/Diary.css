@@ -1,0 +1,33 @@
+.diary-head > a,
+.diary-head > h4,
+#sidebar-title > h4,
+#memorytextlabel {
+  color: white;
+}
+
+#memorytextlabel{
+  font-size: 20px;
+}
+
+.diary-head {
+  display: flex;
+  justify-content: space-between;
+}
+
+.diary-head > a:hover {
+  color: white;
+  text-decoration: underline 2px white;
+}
+
+.diary-head {
+  display: flex;
+  justify-content: space-between;
+}
+
+.memory_action > button {
+  margin: 7px;
+}
+
+#MemoryTextarea {
+  resize: none;
+}

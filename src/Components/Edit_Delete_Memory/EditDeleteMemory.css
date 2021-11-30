@@ -1,0 +1,7 @@
+.editDelete-head{
+    display: flex;
+    justify-content: space-between;
+}
+.editDelete-head >h4{
+    color: white;
+}

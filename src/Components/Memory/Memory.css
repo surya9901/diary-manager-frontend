@@ -1,0 +1,9 @@
+.viewMemory-head {
+  display: flex;
+  justify-content: space-between;
+}
+
+.viewMemory-head > h4 {
+  color: white;
+}
+

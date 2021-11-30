@@ -1,0 +1,47 @@
+
+
+#homepage_container{
+  top: 20vh;
+  position: relative;
+}
+
+.homepage_content{
+  color: white;
+  font-family: 'Comforter Brush', cursive;
+}
+
+.homepage_content>h1{
+  font-size: 100px;
+}
+
+.homepage_content>h4{
+  font-size: 50px;
+}
+
+.login_register > a{
+  margin: 20px;
+  text-decoration: none;
+  color: white;
+  font-size: 20px;
+}
+
+.login_register > a:hover{
+  margin: 20px;
+  text-decoration: underline 2px white;
+  color: white;
+  font-size: 20px;
+}
+
+.login_register > button{
+  margin: 20px;
+  text-decoration: none;
+  color: white;
+  font-size: 20px;
+}
+
+.login_register > button:hover{
+  margin: 20px;
+  text-decoration: underline 2px white;
+  color: white;
+  font-size: 20px;
+}
