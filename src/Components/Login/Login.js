@@ -11,6 +11,7 @@ function Login() {
     const navigate = useNavigate()
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const [showForgot, setShowForgot] = useState(false)
     let handleLogin = async (e) => {
         e.preventDefault()
         try {
@@ -19,6 +20,7 @@ function Login() {
             navigate("/DiaryPage")
         } catch (error) {
             console.error()
+            setShowForgot(true)
             toastwrongentry()
         }
     }
@@ -41,6 +43,12 @@ function Login() {
                         <label htmlFor="floatingInput">Password</label>
                     </div>
                     <Link to="/Register">Not a user? Click Here</Link>
+                    {
+                        showForgot ?
+                            <div className="mt-1">
+                                <Link to="/Forgot">Forgot Password?</Link>
+                            </div> : ""
+                    }
                     <div className="login-button">
                         <button className="btn btn-success m-3" type="submit">Log In</button>
                     </div>

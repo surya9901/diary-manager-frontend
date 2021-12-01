@@ -9,6 +9,8 @@ import Dairy from './Components/DiaryPage.js/Dairy';
 import Memory from './Components/Memory/Memory';
 import EditDeleteMemory from './Components/Edit_Delete_Memory/EditDeleteMemory';
 import ViewMemory from './Components/ViewMemory/ViewMemory';
+import Forgot from './Components/ForgotPassword/Forgot';
+import Reset from './Components/ResetPassword/Reset';
 
 function App() {
   return (
@@ -17,7 +19,9 @@ function App() {
         <Route exact="true" path="/" element={<Homepage />} />
         <Route eaxct="true" path="/Login" element={<Login />} />
         <Route exact="true" path="/Register" element={<Register />} />
+        <Route exact="true" path="/Forgot" element={<Forgot />} />
         <Route exact="true" path="/DiaryPage" element={<Dairy />} />
+        <Route exact="true" path="/Forgot/:id" element={<Reset />} />
         <Route exact="true" path="/DiaryPage/SavedMemory" element={<Memory />} />
         <Route exact="true" path="/DiaryPage/SavedMemory/EditDeleteMemory/:id" element={<EditDeleteMemory />} />
         <Route exact="true" path="/DiaryPage/SavedMemory/ViewMemory/:id" element={<ViewMemory />} />

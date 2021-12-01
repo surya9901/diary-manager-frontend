@@ -95,3 +95,31 @@ export const toastwrongentry = () => {
         theme: 'dark',
     })
 }
+
+export const toastnoemail = () => {
+    toast.info('We found that this Email is not registered with us!', {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        pauseOnFocusLoss: false,
+        draggable: false,
+        progress: undefined,
+        theme: 'dark',
+    })
+}
+
+export const toastfakeotp = () => {
+    toast.info('OTP is Invalid!', {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        pauseOnFocusLoss: false,
+        draggable: false,
+        progress: undefined,
+        theme: 'dark',
+    })
+}
