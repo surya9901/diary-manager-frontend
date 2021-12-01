@@ -5,6 +5,7 @@ import './Memory.css'
 import env from '../settings'
 import { useNavigate } from 'react-router-dom'
 import { format } from '../utils'
+import Loader from '../loader'
 
 function Memory() {
 
@@ -28,6 +29,8 @@ function Memory() {
     const [titleValue, setTitleValue] = useState("")
     const [filteredData, setFilteredData] = useState([])
 
+    const [loading, setLoading] = useState(true)
+
     const toggleDrop = () => {
         setFilterDropDown(!filterDropDown)
         setFetchedMemory("")
@@ -50,6 +53,7 @@ function Memory() {
 
     const fetchfilterData = async (e) => {
         e.preventDefault()
+        setLoading(true)
         if (!dateValue == "") {
             let filterData = await axios.get(`${env.api}/filtered-data?q=${dateValue}`, {
                 headers: {
@@ -57,6 +61,7 @@ function Memory() {
                 }
             })
             setFilteredData([...filterData.data])
+            setLoading(false)
         } else {
             let filterData = await axios.get(`${env.api}/filtered-data?q=${titleValue}`, {
                 headers: {
@@ -64,10 +69,12 @@ function Memory() {
                 }
             })
             setFilteredData([...filterData.data])
+            setLoading(false)
         }
     }
 
     const fetchData = async () => {
+        setLoading(true)
         try {
             let data = await axios.get(`${env.api}/view-memory`, {
                 headers: {
@@ -76,9 +83,11 @@ function Memory() {
             })
             if ([data.data] == "") {
                 setFilterDisable(true)
+                setLoading(false)
             } else {
                 setFilterDisable(false)
                 setFetchedMemory([...data.data])
+                setLoading(false)
             }
         } catch (error) {
             console.log(error)
@@ -148,28 +157,33 @@ function Memory() {
                 <div className="memories_result mt-3 mb-3">
                     <div className="row">
                         {
-                            fetchedMemory == "" && filteredData == "" ? <h4 className="text-center mt-5" style={{ "color": "white" }}>No Data Found</h4> :
+                            loading ? <div className="text-center" style={{ "alignItems": "center" }}>
+                                <Loader />
+                            </div> :
                                 <>
                                     {
-                                        (fetchedMemory == "" ? filteredData : fetchedMemory).map(obj => {
-                                            return (
-                                                <div className="col-lg-3 mb-3">
-                                                    <div className="card">
-                                                        <div className="card-body">
-                                                            <h6>{obj.title}</h6>
-                                                            <p className="text-muted">Created On: {format(obj.date)}</p>
-                                                            <div className="text-center">
-                                                                <button className="btn" onClick={() => navigate(`/DiaryPage/SavedMemory/EditDeleteMemory/${obj._id}`)}><i className="fas fa-edit"></i></button>
-                                                                <button className="btn" onClick={() => navigate(`/DiaryPage/SavedMemory/ViewMemory/${obj._id}`)}><i className="fas fa-eye"></i></button>
+                                        fetchedMemory == "" && filteredData == "" ? <h4 className="text-center mt-5" style={{ "color": "white" }}>No Data Found</h4> :
+                                            <>
+                                                {
+                                                    (fetchedMemory == "" ? filteredData : fetchedMemory).map(obj => {
+                                                        return (
+                                                            <div className="col-lg-3 mb-3">
+                                                                <div className="card">
+                                                                    <div className="card-body">
+                                                                        <h6>{obj.title}</h6>
+                                                                        <p className="text-muted">Created On: {format(obj.date)}</p>
+                                                                        <div className="text-center">
+                                                                            <button className="btn" onClick={() => navigate(`/DiaryPage/SavedMemory/EditDeleteMemory/${obj._id}`)}><i className="fas fa-edit"></i></button>
+                                                                            <button className="btn" onClick={() => navigate(`/DiaryPage/SavedMemory/ViewMemory/${obj._id}`)}><i className="fas fa-eye"></i></button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            )
-                                        })
-                                    }
-                                </>
-                        }
+                                                        )
+                                                    })
+                                                }
+                                            </>
+                                    } </>}
                     </div>
                 </div>
             </div>

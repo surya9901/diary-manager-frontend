@@ -6,12 +6,15 @@ import './ViewMemory.css'
 import axios from 'axios'
 import env from '../settings'
 import { format } from '../utils'
+import Loader from '../loader'
 
 function ViewMemory() {
 
     useEffect(() => {
         fecthViewData()
     }, [])
+
+    const [loading, setLoading] = useState(true)
 
     const { id } = useParams()
 
@@ -23,37 +26,45 @@ function ViewMemory() {
             }
         })
         setFetchedViewData([...data.data])
+        setLoading(false)
     }
 
     return (
         <>
             <Navbar />
             {
-                fetchedViewData.map(obj => {
-                    return (
-                        <div className="container mt-4">
-                            <div className="view_head">
-                                <div className="row">
-                                    <div className="col col-lg-8">
-                                        <h5>Title: {obj.title} </h5>
+                loading ? <div className="text-center" style={{ "alignItems": "center" }}>
+                    <Loader />
+                </div> :
+                    <>
+                        {
+                            fetchedViewData.map(obj => {
+                                return (
+                                    <div className="container mt-4">
+                                        <div className="view_head">
+                                            <div className="row">
+                                                <div className="col col-lg-8">
+                                                    <h5>Title: {obj.title} </h5>
+                                                </div>
+                                                <div className="col col-lg-3">
+                                                    <h5>Created On: {format(obj.date)}</h5>
+                                                </div>
+                                                <div className="col col-lg-1">
+                                                    <NavLink className="btn" to="/DiaryPage/SavedMemory" ><i className="fas fa-backward" style={{ "color": "white" }}></i></NavLink>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="view_content">
+                                            <div className="mb-2">
+                                                <label htmlFor="MemoryTextarea" className="form-label" id="memorytextlabel">Memory Content</label>
+                                                <textarea className="form-control" id="MemoryTextarea" rows="13" style={{ "fontSize": "20px" }} value={obj.memory} disabled={true} />
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div className="col col-lg-3">
-                                        <h5>Created On: {format(obj.date)}</h5>
-                                    </div>
-                                    <div className="col col-lg-1">
-                                        <NavLink className="btn" to="/DiaryPage/SavedMemory" ><i className="fas fa-backward" style={{ "color": "white" }}></i></NavLink>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="view_content">
-                                <div className="mb-2">
-                                    <label htmlFor="MemoryTextarea" className="form-label" id="memorytextlabel">Memory Content</label>
-                                    <textarea className="form-control" id="MemoryTextarea" rows="13" style={{ "fontSize": "20px" }} value={obj.memory} disabled={true} />
-                                </div>
-                            </div>
-                        </div>
-                    )
-                })
+                                )
+                            })
+                        }
+                    </>
             }
         </>
     )

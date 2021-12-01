@@ -8,10 +8,12 @@ import { useNavigate } from 'react-router-dom'
 import './EditDeleteMemory.css'
 import { toastsuccess, toasterror } from '../utils'
 import Toastoptions from '../Toastoptions'
+import Loader from '../loader'
 
 function EditDeleteMemory() {
 
     const navigate = useNavigate()
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
         fecthdataEditDelete()
@@ -32,6 +34,7 @@ function EditDeleteMemory() {
         setEditTitle(fetchedData.title)
         setEditDate(fetchedData.date)
         setEditMemory(fetchedData.memory)
+        setLoading(false)
     }
 
     const saveEdit = async () => {
@@ -46,6 +49,7 @@ function EditDeleteMemory() {
             setEditDate("")
             setTitleDisable(true)
             setMemoryDisable(true)
+            setLoading(false)
             toastsuccess()
             setTimeout(() => {
                 navigate("/DiaryPage/SavedMemory")
@@ -69,6 +73,7 @@ function EditDeleteMemory() {
             setEditDate("")
             setTitleDisable(true)
             setMemoryDisable(true)
+            setLoading(false)
             toastsuccess()
             setTimeout(() => {
                 navigate("/DiaryPage/SavedMemory")
@@ -86,40 +91,45 @@ function EditDeleteMemory() {
             <Toastoptions />
             <Navbar />
             <div className="container mb-3">
-                <div className="editDelete-head">
-                    <h4>Edit/Delete your Saved Memory</h4>
-                    <div>
-                        <button className="btn btn-danger" onClick={() => navigate("/DiaryPage/SavedMemory")}><i className="fas fa-backward"></i></button>
-                    </div>
-                </div>
-                <div className="diaryEditDelete_head mt-3">
-                    <div className="row" style={{ "alignItems": "center" }}>
-                        <div className="col col-lg-8">
-                            <div className="form-floating mb-3">
-                                <input type="text" className="form-control" placeholder="text" value={editTitle} onChange={(e) => setEditTitle(e.target.value)} disabled={titleDisable} />
-                                <label htmlFor="floatingInput">Title</label>
+                {
+                    loading ? <div className="text-center" style={{ "alignItems": "center" }}>
+                        <Loader />
+                    </div> : <>
+                        <div className="editDelete-head">
+                            <h4>Edit/Delete your Saved Memory</h4>
+                            <div>
+                                <button className="btn btn-danger" onClick={() => navigate("/DiaryPage/SavedMemory")}><i className="fas fa-backward"></i></button>
                             </div>
                         </div>
-                        <div className="col col-lg-3">
-                            <h4 className="text-muted">Created On: {format(editDate)}</h4>
-                        </div>
-                        <div className="col col-lg-1">
-                            <button className="btn" type="button" style={{ "color": "red", "fontSize": "35px" }} onClick={deleteMemory} ><i className="fas fa-trash"></i></button>
-                        </div>
+                        <div className="diaryEditDelete_head mt-3">
+                            <div className="row" style={{ "alignItems": "center" }}>
+                                <div className="col col-lg-8">
+                                    <div className="form-floating mb-3">
+                                        <input type="text" className="form-control" placeholder="text" value={editTitle} onChange={(e) => setEditTitle(e.target.value)} disabled={titleDisable} />
+                                        <label htmlFor="floatingInput">Title</label>
+                                    </div>
+                                </div>
+                                <div className="col col-lg-3">
+                                    <h4 className="text-muted">Created On: {format(editDate)}</h4>
+                                </div>
+                                <div className="col col-lg-1">
+                                    <button className="btn" type="button" style={{ "color": "red", "fontSize": "35px" }} onClick={deleteMemory} ><i className="fas fa-trash"></i></button>
+                                </div>
 
-                        <div className="col-lg-12">
-                            <div className="mb-2">
-                                <label htmlFor="MemoryTextarea" className="form-label" id="memorytextlabel">Content</label>
-                                <textarea className="form-control" id="MemoryTextarea" rows="12" value={editMemory} onChange={(e) => setEditMemory(e.target.value)} disabled={memoryDisable} />
+                                <div className="col-lg-12">
+                                    <div className="mb-2">
+                                        <label htmlFor="MemoryTextarea" className="form-label" id="memorytextlabel">Content</label>
+                                        <textarea className="form-control" id="MemoryTextarea" rows="12" value={editMemory} onChange={(e) => setEditMemory(e.target.value)} disabled={memoryDisable} />
+                                    </div>
+                                </div>
+                                <div className="col-lg-12">
+                                    <div className="memory_action text-center">
+                                        <button className="btn btn-success" type="button" onClick={saveEdit}>Save Edited</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div className="col-lg-12">
-                            <div className="memory_action text-center">
-                                <button className="btn btn-success" type="button" onClick={saveEdit}>Save Edited</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                    </>}
             </div>
         </>
     )
